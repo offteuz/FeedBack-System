@@ -1,17 +1,38 @@
 package com.fiap.feedbacksystem.model.dto.usuario;
 
 import com.fiap.feedbacksystem.model.enums.TipoUsuario;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
-public class UsuarioRequestDTO {
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    String nome;
-    String email;
-    TipoUsuario tipoUsuario; // "Estudante" ou "Administrador"
+import java.io.Serializable;
 
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
-    public TipoUsuario getTipoUsuario() { return tipoUsuario; }
-    public void setTipoUsuario(TipoUsuario tipoUsuario) { this.tipoUsuario = tipoUsuario; }
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class UsuarioRequestDTO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @NotBlank(message = "nome é obrigatório")
+    @Size(min = 2, max = 100, message = "nome deve ter entre 2 e 100 caracteres")
+    private String nome;
+
+    @NotBlank(message = "email é obrigatório")
+    @Email(message = "email inválido")
+    private String email;
+
+    @NotNull(message = "tipoUsuario é obrigatório")
+    private TipoUsuario tipoUsuario; // ESTUDANTE ou ADMINISTRADOR
 }
