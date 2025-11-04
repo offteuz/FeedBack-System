@@ -3,23 +3,12 @@ package com.fiap.feedbacksystem.mapper;
 import com.fiap.feedbacksystem.model.dto.usuario.UsuarioRequestDTO;
 import com.fiap.feedbacksystem.model.dto.usuario.UsuarioResponseDTO;
 import com.fiap.feedbacksystem.model.entity.Usuario;
+import org.mapstruct.Mapper;
 
-public class UsuarioMapper {
+@Mapper(componentModel = "spring")
+public interface UsuarioMapper {
 
-    public static Usuario toEntity(UsuarioRequestDTO dto) {
-        Usuario usuario = new Usuario();
-        usuario.setNome(dto.getNome());
-        usuario.setEmail(dto.getEmail());
-        usuario.setTipoUsuario(dto.getTipoUsuario());
-        return usuario;
-    }
+    Usuario toEntity(UsuarioRequestDTO dto);
 
-    public static UsuarioResponseDTO toResponseDTO(Usuario entity) {
-        UsuarioResponseDTO dto = new UsuarioResponseDTO();
-        dto.setId(entity.getId());
-        dto.setNome(entity.getNome());
-        dto.setEmail(entity.getEmail());
-        dto.setTipoUsuario(entity.getTipoUsuario());
-        return dto;
-    }
+    UsuarioResponseDTO toResponseDTO(Usuario entity);
 }

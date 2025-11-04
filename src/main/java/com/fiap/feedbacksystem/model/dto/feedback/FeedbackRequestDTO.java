@@ -1,23 +1,35 @@
 package com.fiap.feedbacksystem.model.dto.feedback;
 
 import com.fiap.feedbacksystem.model.enums.TipoFeedback;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class FeedbackRequestDTO {
 
-    int idUsuario;
-    int idAula;
-    int nota; // Nota de 1 a 10
-    String comentario;
-    TipoFeedback tipoFeedback; // "URGENTE", "ELOGIO" ou "CRITICA"
+    @NotNull(message = "idUsuario é obrigatório")
+    private Integer idUsuario;
 
-    public int getIdUsuario() { return idUsuario; }
-    public void setIdUsuario(int idUsuario) { this.idUsuario = idUsuario; }
-    public int getIdAula() { return idAula; }
-    public void setIdAula(int idAula) { this.idAula = idAula; }
-    public int getNota() { return nota; }
-    public void setNota(int nota) { this.nota = nota; }
-    public String getComentario() { return comentario; }
-    public void setComentario(String comentario) { this.comentario = comentario; }
-    public TipoFeedback getTipoFeedback() { return tipoFeedback; }
-    public void setTipoFeedback(TipoFeedback tipoFeedback) { this.tipoFeedback = tipoFeedback; }
+    @NotNull(message = "idAula é obrigatório")
+    private Integer idAula;
+
+    @NotNull(message = "nota é obrigatória")
+    @Min(value = 1, message = "nota mínima é 1")
+    @Max(value = 10, message = "nota máxima é 10")
+    private Integer nota; // Nota de 1 a 10
+
+    @NotBlank(message = "comentario é obrigatório")
+    private String comentario;
+
+    @NotNull(message = "tipoFeedback é obrigatório")
+    private TipoFeedback tipoFeedback; // "URGENTE", "ELOGIO" ou "CRITICA"
 }
