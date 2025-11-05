@@ -1,5 +1,6 @@
 package com.fiap.feedbacksystem.controller;
 
+import com.fiap.feedbacksystem.config.swagger.ApiStandardErrorResponses;
 import com.fiap.feedbacksystem.model.dto.aula.AulaRequestDTO;
 import com.fiap.feedbacksystem.model.dto.aula.AulaResponseDTO;
 import com.fiap.feedbacksystem.service.AulaService;
@@ -20,12 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-
 import java.net.URI;
 
-
 @RestController
-@RequestMapping("/api/aulas")
+@RequestMapping("/api")
 @Validated
 public class AulaController {
 
@@ -37,25 +36,13 @@ public class AulaController {
         this.aulaService = aulaService;
     }
 
-    @PostMapping(
-            path = "",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @PostMapping(path = "/aulas", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Criar nova aula (somente administradores)")
-    @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Aula criada com sucesso",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.fiap.feedbacksystem.model.dto.aula.AulaResponseDTO.class))),
-            @ApiResponse(responseCode = "400", description = "Dados inválidos",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.fiap.feedbacksystem.exception.ErrorResponse.class))),
-            @ApiResponse(responseCode = "403", description = "Forbidden - usuário não é administrador",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.fiap.feedbacksystem.exception.ErrorResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Administrador não encontrado",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.fiap.feedbacksystem.exception.ErrorResponse.class))),
-            @ApiResponse(responseCode = "422", description = "Regras de negócio",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.fiap.feedbacksystem.exception.ErrorResponse.class)))
-    })
-     public ResponseEntity<AulaResponseDTO> criarAula(@Valid @RequestBody AulaRequestDTO dto) {
+    @ApiResponse(responseCode = "201", description = "Aula criada com sucesso",
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = com.fiap.feedbacksystem.model.dto.aula.AulaResponseDTO.class)))
+    @ApiStandardErrorResponses
+    public ResponseEntity<AulaResponseDTO> criarAula(@Valid @RequestBody AulaRequestDTO dto) {
         logger.info("POST /api/aulas - payload: {}", dto);
         AulaResponseDTO response = aulaService.create(dto);
         logger.debug("Aula criada - response: {}", response);

@@ -1,5 +1,6 @@
 package com.fiap.feedbacksystem.controller;
 
+import com.fiap.feedbacksystem.config.swagger.ApiStandardErrorResponses;
 import com.fiap.feedbacksystem.model.dto.feedback.FeedbackRequestDTO;
 import com.fiap.feedbacksystem.model.dto.feedback.FeedbackResponseDTO;
 import com.fiap.feedbacksystem.service.FeedbackService;
@@ -11,7 +12,6 @@ import org.springframework.validation.annotation.Validated;
 import jakarta.validation.Valid;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/api/feedbacks")
+@RequestMapping("/api")
 @Validated
 public class FeedbackController {
 
@@ -35,20 +35,12 @@ public class FeedbackController {
         this.feedbackService = feedbackService;
     }
 
-    @PostMapping(path = "",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/feedbacks", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Criar feedback para uma aula (somente estudantes)")
-    @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Feedback criado",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.fiap.feedbacksystem.model.dto.feedback.FeedbackResponseDTO.class))),
-            @ApiResponse(responseCode = "400", description = "Dados inválidos",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.fiap.feedbacksystem.exception.ErrorResponse.class))),
-            @ApiResponse(responseCode = "403", description = "Forbidden - somente estudantes",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.fiap.feedbacksystem.exception.ErrorResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Usuário ou aula não encontrada",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.fiap.feedbacksystem.exception.ErrorResponse.class)))
-    })
+    @ApiResponse(responseCode = "201", description = "Feedback criado",
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = com.fiap.feedbacksystem.model.dto.feedback.FeedbackResponseDTO.class)))
+    @ApiStandardErrorResponses
     public ResponseEntity<FeedbackResponseDTO> criarFeedback(@Valid @RequestBody FeedbackRequestDTO dto) {
         logger.info("POST /api/feedbacks - payload: {}", dto);
         FeedbackResponseDTO response = feedbackService.create(dto);
@@ -56,7 +48,7 @@ public class FeedbackController {
 
         URI location = null;
         try {
-            if (response != null ) {
+            if (response != null) {
                 location = ServletUriComponentsBuilder.fromCurrentRequest()
                         .path("/{id}")
                         .buildAndExpand(response.getId())

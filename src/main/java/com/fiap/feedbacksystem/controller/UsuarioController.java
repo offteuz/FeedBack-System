@@ -1,8 +1,13 @@
 package com.fiap.feedbacksystem.controller;
 
+import com.fiap.feedbacksystem.config.swagger.ApiStandardErrorResponses;
 import com.fiap.feedbacksystem.model.dto.usuario.UsuarioRequestDTO;
 import com.fiap.feedbacksystem.model.dto.usuario.UsuarioResponseDTO;
 import com.fiap.feedbacksystem.service.UsuarioService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -15,11 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-
 import java.net.URI;
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/api")
 @Validated
 public class UsuarioController {
 
@@ -31,7 +35,12 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-    @PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/usuarios", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Criar usuários que terão acesso a plataforma de aulas")
+    @ApiResponse(responseCode = "201", description = "Usuário criado",
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = com.fiap.feedbacksystem.model.dto.usuario.UsuarioResponseDTO.class)))
+    @ApiStandardErrorResponses
     public ResponseEntity<UsuarioResponseDTO> criarUsuario(@RequestBody UsuarioRequestDTO dto) {
         logger.info("POST /api/usuarios - payload: {}", dto);
         try {

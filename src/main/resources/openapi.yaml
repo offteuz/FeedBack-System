@@ -1,4 +1,0 @@
-# Arquivo removido: documentação agora é gerada dinamicamente pelo springdoc-openapi
-# Use o endpoint /v3/api-docs ou /swagger-ui/index.html para acessar a documentação ativa
-# Manter este arquivo vazio para evitar conflito com a spec dinâmica
-
