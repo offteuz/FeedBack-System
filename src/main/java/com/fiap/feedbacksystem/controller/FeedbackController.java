@@ -1,19 +1,14 @@
 package com.fiap.feedbacksystem.controller;
 
-import com.fiap.feedbacksystem.config.swagger.ApiStandardErrorResponses;
 import com.fiap.feedbacksystem.model.dto.feedback.FeedbackRequestDTO;
 import com.fiap.feedbacksystem.model.dto.feedback.FeedbackResponseDTO;
 import com.fiap.feedbacksystem.service.FeedbackService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import jakarta.validation.Valid;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +18,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/feedbacks")
 @Validated
+@Tag(name = "Criar Feedback", description = "Criação de feedbacks")
 public class FeedbackController {
 
     private static final Logger logger = LoggerFactory.getLogger(FeedbackController.class);
@@ -35,12 +31,7 @@ public class FeedbackController {
         this.feedbackService = feedbackService;
     }
 
-    @PostMapping(path = "/feedbacks", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Criar feedback para uma aula (somente estudantes)")
-    @ApiResponse(responseCode = "201", description = "Feedback criado",
-            content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = com.fiap.feedbacksystem.model.dto.feedback.FeedbackResponseDTO.class)))
-    @ApiStandardErrorResponses
+    @PostMapping
     public ResponseEntity<FeedbackResponseDTO> criarFeedback(@Valid @RequestBody FeedbackRequestDTO dto) {
         logger.info("POST /api/feedbacks - payload: {}", dto);
         FeedbackResponseDTO response = feedbackService.create(dto);
