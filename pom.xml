@@ -42,6 +42,14 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- MySQL Connector (runtime only) - required when connecting to Azure Database for MySQL -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.0.33</version>
+            <scope>runtime</scope>
+        </dependency>
+
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
