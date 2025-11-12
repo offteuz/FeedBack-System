@@ -15,7 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Feedback {
+public class Feedback extends Auditoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

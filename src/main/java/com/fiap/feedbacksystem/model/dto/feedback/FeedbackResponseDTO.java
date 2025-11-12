@@ -1,18 +1,19 @@
 package com.fiap.feedbacksystem.model.dto.feedback;
 
+import com.fiap.feedbacksystem.model.dto.auditoria.AuditoriaResponseDTO;
 import com.fiap.feedbacksystem.model.enums.TipoFeedback;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FeedbackResponseDTO {
+public class FeedbackResponseDTO extends AuditoriaResponseDTO {
 
     private Integer id;
     private Integer idUsuario;

@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Aula {
+public class Aula extends Auditoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
