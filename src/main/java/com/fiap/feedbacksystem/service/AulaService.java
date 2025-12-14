@@ -55,15 +55,4 @@ public class AulaService {
         logger.debug("Aula criada com id={}", response.getId());
         return response;
     }
-
-/*    public List<AulaResponseDTO> findAll() {
-        return repository.findAll().stream()
-                .map(AulaMapper::toResponseDTO)
-                .collect(Collectors.toList());
-    }
-
-    public AulaResponseDTO findById(Integer id) {
-        Aula entity = repository.findById(id).orElseThrow();
-        return AulaMapper.toResponseDTO(entity);
-    }*/
 }
