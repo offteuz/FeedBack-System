@@ -1,17 +1,16 @@
-package com.fiap.functions.function;
+package com.fiap.functions.handlers;
 
 import com.fiap.functions.dto.RelatorioSemanalDTO;
-import com.fiap.functions.repository.FeedbackJdbcRepository;
+import com.fiap.functions.repository.FeedbackRepository;
 import com.microsoft.azure.functions.*;
 import com.microsoft.azure.functions.annotation.*;
 
 import java.util.Optional;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class RelatorioSemanalFunction {
 
-    private final FeedbackJdbcRepository repository = new FeedbackJdbcRepository();
+    private final FeedbackRepository repository = new FeedbackRepository();
 
     @FunctionName("relatorioSemanal")
     public HttpResponseMessage run(
@@ -27,7 +26,7 @@ public class RelatorioSemanalFunction {
         context.getLogger().info("Gerando relatório semanal de feedbacks");
 
         try {
-            RelatorioSemanalDTO relatorio = repository.gerarRelatorioSemanal();
+            RelatorioSemanalDTO relatorio = repository.buscarFeedbackSemanal();
 
             return request
                     .createResponseBuilder(HttpStatus.OK)
@@ -36,7 +35,8 @@ public class RelatorioSemanalFunction {
                     .build();
 
         } catch (Exception e) {
-            context.getLogger().severe(e.getMessage());
+//            context.getLogger().severe(e.getMessage());
+            context.getLogger().log(Level.SEVERE, "Erro ao gerar relatório semanal", e);
 
             return request
                     .createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR)

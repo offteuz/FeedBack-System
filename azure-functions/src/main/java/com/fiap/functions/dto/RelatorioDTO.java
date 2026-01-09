@@ -1,41 +1,91 @@
 package com.fiap.functions.dto;
 
 public class RelatorioDTO {
+    private Long id;
+    private String comentario;
+    private Integer nota;
+    private String tipoFeedback;
+    private String usuario;
+    private String email;
+    private String aula;
+    private String tipoDisciplina;
 
-    private String tipo;
-    private int totalFeedbacks;
-    private String periodo;
+    public RelatorioDTO(Long id, String comentario, Integer nota, String tipoFeedback, String usuario, String email, String aula, String tipoDisciplina) {
+        this.id = id;
+        this.comentario = comentario;
+        this.nota = nota;
+        this.tipoFeedback = tipoFeedback;
+        this.usuario = usuario;
+        this.email = email;
+        this.aula = aula;
+        this.tipoDisciplina = tipoDisciplina;
+    }
 
     public RelatorioDTO() {
+
     }
 
-    public RelatorioDTO(String tipo, int totalFeedbacks, String periodo) {
-        this.tipo = tipo;
-        this.totalFeedbacks = totalFeedbacks;
-        this.periodo = periodo;
+    public Long getId() {
+        return id;
     }
 
-    public String getTipo() {
-        return tipo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public int getTotalFeedbacks() {
-        return totalFeedbacks;
+    public String getComentario() {
+        return comentario;
     }
 
-    public String getPeriodo() {
-        return periodo;
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public Integer getNota() {
+        return nota;
     }
 
-    public void setTotalFeedbacks(int totalFeedbacks) {
-        this.totalFeedbacks = totalFeedbacks;
+    public void setNota(Integer nota) {
+        this.nota = nota;
     }
 
-    public void setPeriodo(String periodo) {
-        this.periodo = periodo;
+    public String getTipoFeedback() {
+        return tipoFeedback;
+    }
+
+    public void setTipoFeedback(String tipoFeedback) {
+        this.tipoFeedback = tipoFeedback;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAula() {
+        return aula;
+    }
+
+    public void setAula(String aula) {
+        this.aula = aula;
+    }
+
+    public String getTipoDisciplina() {
+        return tipoDisciplina;
+    }
+
+    public void setTipoDisciplina(String tipoDisciplina) {
+        this.tipoDisciplina = tipoDisciplina;
     }
 }

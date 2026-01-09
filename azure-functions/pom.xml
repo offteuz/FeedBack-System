@@ -14,7 +14,7 @@
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <azure.functions.maven.plugin.version>1.32.0</azure.functions.maven.plugin.version>
-        <azure.functions.java.library.version>3.1.0</azure.functions.java.library.version>
+        <azure.functions.java.library.version>3.0.0</azure.functions.java.library.version>
     </properties>
 
     <dependencies>
@@ -25,11 +25,18 @@
             <version>${azure.functions.java.library.version}</version>
         </dependency>
 
-        <!-- PostgreSQL JDBC -->
+        <!-- Application Insghts -->
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.7.3</version>
+            <groupId>com.microsoft.azure</groupId>
+            <artifactId>applicationinsights-runtime-attach</artifactId>
+            <version>3.5.4</version>
+        </dependency>
+
+        <!-- MySQL JDBC -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.4.0</version>
         </dependency>
 
         <!-- JSON (opcional, útil para relatórios) -->
@@ -49,6 +56,9 @@
                 <version>3.11.0</version>
                 <configuration>
                     <release>${java.version}</release>
+                    <source>17</source>
+                    <target>17</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>
 
@@ -58,8 +68,8 @@
                 <artifactId>azure-functions-maven-plugin</artifactId>
                 <version>${azure.functions.maven.plugin.version}</version>
                 <configuration>
-                    <resourceGroup>rg-feedback</resourceGroup>
-                    <appName>feedback-functions-fiap-114</appName>
+                    <resourceGroup>feedback-system-rg</resourceGroup>
+                    <appName>feedback-system-functions</appName>
                     <region>brazilsouth</region>
                     <runtime>
                         <os>linux</os>
@@ -67,6 +77,17 @@
                     </runtime>
                 </configuration>
             </plugin>
+
+            <!-- Maven Test Connection Database -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <mainClass>com.fiap.functions.repository.TestDbConnection</mainClass>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 

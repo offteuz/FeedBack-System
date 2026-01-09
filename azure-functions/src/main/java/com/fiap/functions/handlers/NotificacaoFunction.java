@@ -1,5 +1,6 @@
-package com.fiap.functions.function;
+package com.fiap.functions.handlers;
 
+import com.fiap.functions.service.NotificacaoFeedbackService;
 import com.microsoft.azure.functions.ExecutionContext;
 import com.microsoft.azure.functions.annotation.FunctionName;
 import com.microsoft.azure.functions.annotation.TimerTrigger;
@@ -8,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class NotificacaoFeedbackFunction {
+public class NotificacaoFunction {
 
     @FunctionName("notificacaoFeedback")
     public void run(
@@ -19,23 +20,16 @@ public class NotificacaoFeedbackFunction {
             String timerInfo,
             final ExecutionContext context
     ) {
-
         Logger logger = context.getLogger();
-
-        logger.info("🔔 Iniciando verificação de feedbacks críticos");
-        logger.info("Horário de execução: " + LocalDateTime.now());
+        logger.info("Iniciando verificação de feedbacks críticos");
+        logger.info("Horário: " + LocalDateTime.now());
 
         try {
-            // 🔜 Aqui entra a consulta ao banco depois
-            // Por enquanto, simulação da regra de negócio
-
-            logger.warning("⚠️ Feedback CRITICA encontrado");
-            logger.severe("🚨 Feedback URGENTE encontrado");
-
+            new NotificacaoFeedbackService().processarNotificacoes(logger);
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Erro ao processar notificações de feedback", e);
+            logger.log(Level.SEVERE, "Erro ao processar notificações", e);
         }
 
-        logger.info("✅ Finalizando execução da Function de Notificação");
+        logger.info("Execução finalizada");
     }
 }

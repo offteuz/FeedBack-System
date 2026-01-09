@@ -5,6 +5,10 @@
       "samplingSettings": {
         "isEnabled": true
       }
+    },
+    "logLevel": {
+      "default": "Information",
+      "Function": "Information"
     }
   }
 }
