@@ -13,12 +13,16 @@ public class DatabaseConnection {
         String user = System.getenv("DB_USER");
         String pwd = System.getenv("DB_PWD");
 
+        if (url == null || user == null || pwd == null) {
+            throw new RuntimeException("Variáveis de ambiente do banco não configuradas");
+        }
+
         // Parâmetros obrigatórios para Azure MySQL em 2026
         Properties props = new Properties();
         props.setProperty("user", user);
         props.setProperty("password", pwd);
         props.setProperty("useSSL", "true");
-        props.setProperty("requireSSL", "false"); // Depende da config do server
+        props.setProperty("requireSSL", "false");
         props.setProperty("serverTimezone", "UTC");
         props.setProperty("allowPublicKeyRetrieval", "true");
 
