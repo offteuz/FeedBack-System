@@ -20,7 +20,7 @@ import java.net.URI;
 @RestController
 @RequestMapping("/api/aulas")
 @Validated
-@Tag(name = "Criar Aula", description = "Criação de aulas")
+@Tag(name = "Aulas", description = "Aulas")
 public class AulaController {
 
     private static final Logger logger = LoggerFactory.getLogger(AulaController.class);

@@ -60,10 +60,10 @@ public class SwaggerConfig {
                 .externalDocs(new ExternalDocumentation()
                         .description("Documentação Técnica Completa")
                         .url("https://github.com/offteuz/FeedBack-System"))
-                .addTagsItem(new Tag().name("Criar Usuário").description("Criação de usuários"))
-                .addTagsItem(new Tag().name("Criar Feedback").description("Criação de feedbacks"))
-                .addTagsItem(new Tag().name("Criar Aula").description("Criação de aulas"))
-                .addTagsItem(new Tag().name("Teste").description("Testes"));
+                .addTagsItem(new Tag().name("Feedbacks"))
+                .addTagsItem(new Tag().name("Aulas"))
+                .addTagsItem(new Tag().name("Testes"))
+                .addTagsItem(new Tag().name("Auth"));
     }
 
     /**
@@ -73,29 +73,10 @@ public class SwaggerConfig {
     public OpenApiCustomizer customApiPaths() {
         return openApi -> {
             openApi
-                    // Usuário
-                    .path("/api/usuarios", new PathItem().post(new Operation()
-                                    .summary("Cria um novo usuário")
-                                    .addTagsItem("Criar Usuário")
-                                    .requestBody(new RequestBody()
-                                            .description("Dados do usuário para criação")
-                                            .required(true)
-                                            .content(new Content().addMediaType("application/json", new MediaType()
-                                                    .schema(new Schema().$ref("#/components/schemas/UsuarioRequestDTO")))))
-                                    .responses(new ApiResponses()
-                                            .addApiResponse("201", new ApiResponse().description("Usuário criado com sucesso")
-                                                    .content(new Content().addMediaType("application/json", new MediaType()
-                                                            .schema(new Schema().$ref("#/components/schemas/UsuarioResponseDTO")))))
-                                            .addApiResponse("400", new ApiResponse().description("Requisição inválida"))
-                                            .addApiResponse("403", new ApiResponse().description("Acesso negado"))
-                                            .addApiResponse("500", new ApiResponse().description("Erro interno do servidor"))
-                                    )
-                            )
-                    )
                     // Feedbacks
                     .path("/api/feedbacks", new PathItem().post(new Operation()
-                                    .summary("Cria um novo feedback")
-                                    .addTagsItem("Criar Feedback")
+                                    .summary("Registra um novo Feedback")
+                                    .addTagsItem("Feedbacks")
                                     .requestBody(new RequestBody()
                                             .description("Dados do feedback para criação")
                                             .required(true)
@@ -113,8 +94,8 @@ public class SwaggerConfig {
                     )
                     // Aulas
                     .path("/api/aulas", new PathItem().post(new Operation()
-                                    .summary("Cria uma nova aula")
-                                    .addTagsItem("Criar Aula")
+                                    .summary("Registra uma nova Aula")
+                                    .addTagsItem("Aulas")
                                     .requestBody(new RequestBody()
                                             .description("Dados da aula para criação")
                                             .required(true)
@@ -165,7 +146,7 @@ public class SwaggerConfig {
                     )
                     .path("/api/test", new PathItem().get(new Operation()
                                     .summary("Realiza login independente da 'role' (administrador ou estudante)")
-                                    .addTagsItem("Teste")
+                                    .addTagsItem("Testes")
                                     .responses(new ApiResponses()
                                             .addApiResponse("200", new ApiResponse().description("Teste realizado com sucesso"))
                                             .addApiResponse("400", new ApiResponse().description("Requisição inválida"))
@@ -176,7 +157,7 @@ public class SwaggerConfig {
                     )
                     .path("/api/test/administrador", new PathItem().get(new Operation()
                                     .summary("Realiza login como 'administrador'")
-                                    .addTagsItem("Teste")
+                                    .addTagsItem("Testes")
                                     .responses(new ApiResponses()
                                             .addApiResponse("200", new ApiResponse().description("Teste realizado como administrador com sucesso"))
                                             .addApiResponse("400", new ApiResponse().description("Requisição inválida"))
@@ -187,7 +168,7 @@ public class SwaggerConfig {
                     )
                     .path("/api/test/estudante", new PathItem().get(new Operation()
                                     .summary("Realiza login como 'estudante'")
-                                    .addTagsItem("Teste")
+                                    .addTagsItem("Testes")
                                     .responses(new ApiResponses()
                                             .addApiResponse("200", new ApiResponse().description("Teste realizado como estudante com sucesso"))
                                             .addApiResponse("400", new ApiResponse().description("Requisição inválida"))

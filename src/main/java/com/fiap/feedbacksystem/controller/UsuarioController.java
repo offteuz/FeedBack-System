@@ -20,8 +20,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/api/usuarios")
-@Validated
-@Tag(name = "Criar Usuário", description = "Criação de usuários")
+@Tag(name = "Usuarios", description = "NÃO USAR!")
 public class UsuarioController {
 
     private static final Logger logger = LoggerFactory.getLogger(UsuarioController.class);
