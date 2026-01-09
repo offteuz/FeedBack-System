@@ -1,0 +1,50 @@
+{
+  "connectionString": "${APPLICATIONINSIGHTS_CONNECTION_STRING}",
+  "role": {
+    "name": "feedbacksystem",
+    "instance": "${HOSTNAME:localhost}"
+  },
+  "instrumentation": {
+    "logging": {
+      "level": "INFO"
+    },
+    "micrometer": {
+      "enabled": true
+    }
+  },
+  "preview": {
+    "instrumentation": {
+      "azureSdk": {
+        "enabled": true
+      },
+      "jdbc": {
+        "enabled": true
+      },
+      "jms": {
+        "enabled": true
+      },
+      "kafka": {
+        "enabled": true
+      },
+      "micrometer": {
+        "enabled": true
+      },
+      "mongo": {
+        "enabled": true
+      },
+      "redis": {
+        "enabled": true
+      },
+      "springScheduling": {
+        "enabled": true
+      }
+    }
+  },
+  "heartbeat": {
+    "intervalSeconds": 15
+  },
+  "selfDiagnostics": {
+    "level": "INFO",
+    "destination": "console"
+  }
+}
