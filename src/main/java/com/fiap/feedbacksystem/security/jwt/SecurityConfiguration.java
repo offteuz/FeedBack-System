@@ -23,6 +23,7 @@ public class SecurityConfiguration {
     }
 
     public static final String [] ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED = {
+            "/",
             "/api/auth/sign-in",
             "/api/auth/sign-up",
             "/h2-console/**",
