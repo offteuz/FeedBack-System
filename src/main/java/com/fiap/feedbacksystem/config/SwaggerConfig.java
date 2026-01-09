@@ -1,10 +1,7 @@
 package com.fiap.feedbacksystem.config;
 
 import io.swagger.v3.oas.annotations.Hidden;
-import io.swagger.v3.oas.models.ExternalDocumentation;
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.Operation;
-import io.swagger.v3.oas.models.PathItem;
+import io.swagger.v3.oas.models.*;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
@@ -14,6 +11,8 @@ import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.RequestBody;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springdoc.core.customizers.OpenApiCustomizer;
@@ -51,12 +50,20 @@ public class SwaggerConfig {
                                 .name("Apache 2.0")
                                 .url("https://www.apache.org/licenses/LICENSE-2.0.html"))
                 )
+                .components(new Components()
+                        .addSecuritySchemes("bearer-key",
+                                new SecurityScheme()
+                                        .type(SecurityScheme.Type.HTTP)
+                                        .scheme("bearer")
+                                        .bearerFormat("JWT")))
+                .addSecurityItem(new SecurityRequirement().addList("bearer-key"))
                 .externalDocs(new ExternalDocumentation()
                         .description("Documentação Técnica Completa")
                         .url("https://github.com/offteuz/FeedBack-System"))
                 .addTagsItem(new Tag().name("Criar Usuário").description("Criação de usuários"))
                 .addTagsItem(new Tag().name("Criar Feedback").description("Criação de feedbacks"))
-                .addTagsItem(new Tag().name("Criar Aula").description("Criação de aulas"));
+                .addTagsItem(new Tag().name("Criar Aula").description("Criação de aulas"))
+                .addTagsItem(new Tag().name("Teste").description("Testes"));
     }
 
     /**
@@ -104,6 +111,7 @@ public class SwaggerConfig {
                                     )
                             )
                     )
+                    // Aulas
                     .path("/api/aulas", new PathItem().post(new Operation()
                                     .summary("Cria uma nova aula")
                                     .addTagsItem("Criar Aula")
@@ -121,7 +129,74 @@ public class SwaggerConfig {
                                             .addApiResponse("500", new ApiResponse().description("Erro interno do servidor"))
                                     )
                             )
-                    );
+                    )
+                    // Auth
+                    .path("/api/auth/sign-up", new PathItem().post(new Operation()
+                                    .summary("Registra um novo usuário")
+                                    .addTagsItem("Auth")
+                                    .requestBody(new RequestBody()
+                                            .description("Dados do usuário para registro")
+                                            .required(true)
+                                            .content(new Content().addMediaType("application/json", new MediaType()
+                                                    .schema(new Schema().$ref("#/components/schemas/UsuarioRequestDTO")))))
+                                    .responses(new ApiResponses()
+                                            .addApiResponse("201", new ApiResponse().description("Usuário registrado com sucesso"))
+                                            .addApiResponse("400", new ApiResponse().description("Requisição inválida"))
+                                            .addApiResponse("403", new ApiResponse().description("Acesso negado"))
+                                            .addApiResponse("500", new ApiResponse().description("Erro interno do servidor"))
+                                    )
+                            )
+                    )
+                    .path("/api/auth/sign-in", new PathItem().post(new Operation()
+                                    .summary("Realiza login")
+                                    .addTagsItem("Auth")
+                                    .requestBody(new RequestBody()
+                                            .description("Dados do usuário para login")
+                                            .required(true)
+                                            .content(new Content().addMediaType("application/json", new MediaType()
+                                                    .schema(new Schema().$ref("#/components/schemas/UsuarioLoginRequestDTO")))))
+                                    .responses(new ApiResponses()
+                                            .addApiResponse("200", new ApiResponse().description("Usuário logado com sucesso"))
+                                            .addApiResponse("400", new ApiResponse().description("Requisição inválida"))
+                                            .addApiResponse("403", new ApiResponse().description("Acesso negado"))
+                                            .addApiResponse("500", new ApiResponse().description("Erro interno do servidor"))
+                                    )
+                            )
+                    )
+                    .path("/api/test", new PathItem().get(new Operation()
+                                    .summary("Realiza login independente da 'role' (administrador ou estudante)")
+                                    .addTagsItem("Teste")
+                                    .responses(new ApiResponses()
+                                            .addApiResponse("200", new ApiResponse().description("Teste realizado com sucesso"))
+                                            .addApiResponse("400", new ApiResponse().description("Requisição inválida"))
+                                            .addApiResponse("403", new ApiResponse().description("Acesso negado"))
+                                            .addApiResponse("500", new ApiResponse().description("Erro interno do servidor"))
+                                    )
+                            )
+                    )
+                    .path("/api/test/administrador", new PathItem().get(new Operation()
+                                    .summary("Realiza login como 'administrador'")
+                                    .addTagsItem("Teste")
+                                    .responses(new ApiResponses()
+                                            .addApiResponse("200", new ApiResponse().description("Teste realizado como administrador com sucesso"))
+                                            .addApiResponse("400", new ApiResponse().description("Requisição inválida"))
+                                            .addApiResponse("403", new ApiResponse().description("Acesso negado"))
+                                            .addApiResponse("500", new ApiResponse().description("Erro interno do servidor"))
+                                    )
+                            )
+                    )
+                    .path("/api/test/estudante", new PathItem().get(new Operation()
+                                    .summary("Realiza login como 'estudante'")
+                                    .addTagsItem("Teste")
+                                    .responses(new ApiResponses()
+                                            .addApiResponse("200", new ApiResponse().description("Teste realizado como estudante com sucesso"))
+                                            .addApiResponse("400", new ApiResponse().description("Requisição inválida"))
+                                            .addApiResponse("403", new ApiResponse().description("Acesso negado"))
+                                            .addApiResponse("500", new ApiResponse().description("Erro interno do servidor"))
+                                    )
+                            )
+                    )
+            ;
         };
     }
 }
