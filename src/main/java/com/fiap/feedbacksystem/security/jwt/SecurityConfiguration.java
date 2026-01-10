@@ -40,11 +40,13 @@ public class SecurityConfiguration {
     // Endpoints que só podem ser acessador por usuários com permissão de "administrador(a)"
     public static final String [] ENDPOINTS_ADMINISTRADOR = {
             "/api/test/administrador",
+            "/api/aulas",
     };
 
     // Endpoints que só podem ser acessador por usuários com permissão de "estudante"
     public static final String [] ENDPOINTS_ESTUDANTE = {
             "/api/test/estudante",
+            "/api/feedbacks",
     };
 
     @Bean

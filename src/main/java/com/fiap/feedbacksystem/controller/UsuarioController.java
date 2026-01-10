@@ -3,6 +3,7 @@ package com.fiap.feedbacksystem.controller;
 import com.fiap.feedbacksystem.model.dto.usuario.UsuarioRequestDTO;
 import com.fiap.feedbacksystem.model.dto.usuario.UsuarioResponseDTO;
 import com.fiap.feedbacksystem.service.UsuarioService;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -17,7 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-
+@Hidden
 @RestController
 @RequestMapping("/api/usuarios")
 @Tag(name = "Usuarios", description = "NÃO USAR!")
