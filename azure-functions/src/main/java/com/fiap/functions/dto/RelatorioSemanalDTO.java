@@ -1,55 +1,42 @@
 package com.fiap.functions.dto;
 
-import java.util.List;
-import java.util.Map;
-
 public class RelatorioSemanalDTO {
 
-    private int totalFeedbacks;
-    private int totalUrgentes;
-    private double mediaNotas;
-    private Map<String, Integer> feedbacksPorDia;
-
-    public RelatorioSemanalDTO(int totalFeedbacks, int totalUrgentes, double mediaNotas, Map<String, Integer> feedbacksPorDia) {
-        this.totalFeedbacks = totalFeedbacks;
-        this.totalUrgentes = totalUrgentes;
-        this.mediaNotas = mediaNotas;
-        this.feedbacksPorDia = feedbacksPorDia;
-    }
+    private String periodo;
+    private long totalFeedbacks;
+    private double mediaAvaliacao;
 
     public RelatorioSemanalDTO() {
-
     }
 
-    public int getTotalFeedbacks() {
+    public RelatorioSemanalDTO(String periodo, long totalFeedbacks, double mediaAvaliacao) {
+        this.periodo = periodo;
+        this.totalFeedbacks = totalFeedbacks;
+        this.mediaAvaliacao = mediaAvaliacao;
+    }
+
+    public String getPeriodo() {
+        return periodo;
+    }
+
+    public void setPeriodo(String periodo) {
+        this.periodo = periodo;
+    }
+
+    public long getTotalFeedbacks() {
         return totalFeedbacks;
     }
 
-    public void setTotalFeedbacks(int totalFeedbacks) {
+    public void setTotalFeedbacks(long totalFeedbacks) {
         this.totalFeedbacks = totalFeedbacks;
     }
 
-    public int getTotalUrgentes() {
-        return totalUrgentes;
+    public double getMediaAvaliacao() {
+        return mediaAvaliacao;
     }
 
-    public void setTotalUrgentes(int totalUrgentes) {
-        this.totalUrgentes = totalUrgentes;
-    }
-
-    public double getMediaNotas() {
-        return mediaNotas;
-    }
-
-    public void setMediaNotas(double mediaNotas) {
-        this.mediaNotas = mediaNotas;
-    }
-
-    public Map<String, Integer> getFeedbacksPorDia() {
-        return feedbacksPorDia;
-    }
-
-    public void setFeedbacksPorDia(Map<String, Integer> feedbacksPorDia) {
-        this.feedbacksPorDia = feedbacksPorDia;
+    public void setMediaAvaliacao(double mediaAvaliacao) {
+        this.mediaAvaliacao = mediaAvaliacao;
     }
 }
+

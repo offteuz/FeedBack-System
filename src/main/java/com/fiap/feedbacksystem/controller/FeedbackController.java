@@ -20,7 +20,7 @@ import java.net.URI;
 @RestController
 @RequestMapping("/api/feedbacks")
 @Validated
-@Tag(name = "Criar Feedback", description = "Criação de feedbacks")
+@Tag(name = "Feedbacks", description = "Feedbacks")
 public class FeedbackController {
 
     private static final Logger logger = LoggerFactory.getLogger(FeedbackController.class);
