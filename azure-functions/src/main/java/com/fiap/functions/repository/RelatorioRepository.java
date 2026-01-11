@@ -12,20 +12,20 @@ import java.util.Locale;
 
 public class RelatorioRepository {
 
-    private static final String SQL_FILTRADO =
-            "SELECT " +
-                    "  f.id AS id_feedback, " +
-                    "  f.comentario, " +
-                    "  f.nota, " +
-                    "  f.tipo_feedback, " +
-                    "  u.nome AS usuario, " +
-                    "  u.email," +
-                    "  a.descricao AS aula," +
-                    "  a.tipo_disciplina " +
-                    "FROM feedback f " +
-                    "JOIN usuario u ON u.id = f.id_usuario " +
-                    "JOIN aula a ON a.id = f.id_aula " +
-                    "WHERE f.tipo_feedback = ?";
+    private static final String SQL_FILTRADO = """
+                SELECT 
+                    f.id AS id_feedback, 
+                    f.comentario, 
+                    f.nota, 
+                    f.tipo_feedback, 
+                    u.nome AS usuario,
+                    u.email,
+                    a.descricao AS aula,
+                    a.tipo_disciplina
+                FROM feedback f
+                JOIN usuario u ON u.id = f.id_usuario
+                JOIN aula a ON a.id = f.id_aula
+                WHERE f.tipo_feedback = ? """;
 
     public List<RelatorioDTO> buscarPorTipo(String tipo) {
 

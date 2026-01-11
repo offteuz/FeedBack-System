@@ -11,7 +11,8 @@ public class NotificacaoFeedbackService {
         String sql = """
             SELECT comentario, tipo_feedback 
             FROM feedback 
-            WHERE nota <= 3 OR tipo_feedback = 'CRITICO'""";
+            WHERE nota <= 3 OR tipo_feedback = 'CRITICO'
+        """;
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);

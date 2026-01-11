@@ -14,10 +14,11 @@ import java.util.Map;
 
 public class FeedbackRepository {
 
-    private static final String SQL =
-            "SELECT id, comentario, nota, tipo_feedback " +
-            "FROM feedback " +
-            "WHERE tipo_feedback = 'URGENTE' OR nota <= 5";
+    private static final String SQL = """
+            SELECT id, comentario, nota, tipo_feedback 
+            FROM feedback 
+            WHERE tipo_feedback = 'URGENTE' OR nota <= 5
+    """;
 
     public List<FeedbackDTO> buscarFeedbacksCriticos() {
 
@@ -53,9 +54,9 @@ public class FeedbackRepository {
 
     public RelatorioSemanalDTO buscarFeedbackSemanal() {
 
-        String sql =
-                "SELECT id, comentario, nota, tipo_feedback " +
-                        "FROM feedback";
+        String sql = """
+            SELECT id, comentario, nota, tipo_feedback FROM feedback
+        """;
 
         List<FeedbackDTO> feedbacks = new ArrayList<>();
         int totalUrgentes = 0;

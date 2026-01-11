@@ -35,8 +35,10 @@ public class RelatorioSemanalFunction {
                     .build();
 
         } catch (Exception e) {
-//            context.getLogger().severe(e.getMessage());
             context.getLogger().log(Level.SEVERE, "Erro ao gerar relatório semanal", e);
+            context.getLogger().severe("Erro ao executar GET /api/relatorio");
+            context.getLogger().severe(e.toString());
+            e.printStackTrace();
 
             return request
                     .createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR)

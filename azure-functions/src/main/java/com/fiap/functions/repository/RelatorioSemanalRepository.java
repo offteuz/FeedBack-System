@@ -22,12 +22,12 @@ public class RelatorioSemanalRepository {
     public RelatorioSemanalDTO gerarRelatorioSemanal() {
 
         String sql = """
-            SELECT
-            DATE(data_envio) AS dia,
-            COUNT(*) AS total
-            FROM feedback
-            WHERE data_envio >= DATE_SUB(NOW(), INTERVAL 7 DAY)
-            GROUP BY DATE(data_envio)
+            SELECT 
+                DATE(ultima_modificacao) AS dia, 
+                COUNT(*) AS total 
+            FROM feedback 
+            WHERE criacao >= DATE_SUB(NOW(), INTERVAL 7 DAY) 
+            GROUP BY DATE(ultima_modificacao);
         """;
 
         List<FeedbackDTO> feedbacks = new ArrayList<>();

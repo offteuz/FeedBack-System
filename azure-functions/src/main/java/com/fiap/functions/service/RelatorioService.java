@@ -22,8 +22,8 @@ public class RelatorioService {
 
         try (
                 Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery()
         ) {
             if (rs.next()) {
                 return new RelatorioSemanalDTO(
